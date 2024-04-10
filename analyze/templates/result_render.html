@@ -1,0 +1,79 @@
+<div id="result_render" class="position-relative p-3">
+    {% if exists %}
+    {% load df_convert %}
+    <div class="container mx-5 p-0 position-sticky rounded-3 shadow border border-2 border-light"
+        style="top: calc(10vh + 10px); z-index: 10; backdrop-filter: blur(10px);">
+        <h1 class="p-1 ps-4 text-dark">{{ company_name }}</h1>
+    </div>
+    <div class="container m-5">
+        <h3 class="text-light">Last 15 days</h3>
+        <table
+            class="table text-center rounded-2 overflow-hidden table-hover table-striped border table-bordered table-light position-relative ">
+            <thead>
+                {{ data | getTableHeaderRowFromDF | safe}}
+            </thead>
+            <tbody class="table-group-divider">
+                {{data | getTableBodyRowsFromDF | safe}}
+            </tbody>
+        </table>
+    <hr>
+        <h3 class="text-light">Overall Charts</h3>
+
+        <figure class="figure w-100 rounded-2 overflow-hidden shadow">
+            {{line|safe}}
+        </figure>
+
+        <figure class="figure w-100 rounded-2 overflow-hidden shadow">
+            {{ema|safe}}
+        </figure>
+
+        <figure class="figure w-100 rounded-2 overflow-hidden shadow">
+            {{candleFig|safe}}
+        </figure>
+
+        <figure class="figure w-100 rounded-2 overflow-hidden shadow">
+            {{sma|safe}}
+        </figure>
+
+        <figure class="figure w-100 rounded-2 overflow-hidden shadow">
+            {{voltty|safe}}
+        </figure>
+
+        <figure class="figure w-100 rounded-2 overflow-hidden shadow">
+            {{macd_rsi|safe}}
+        </figure>
+
+        <figure class="figure w-100 rounded-2 overflow-hidden shadow">
+            {{adx_atr|safe}}
+        </figure>
+
+        <figure class="figure w-100 rounded-2 overflow-hidden shadow">
+            {{bollinger|safe}}
+        </figure>
+
+        <figure class="figure w-100 rounded-2 overflow-hidden shadow">
+            {{change_rate|safe}}
+        </figure>
+
+        <figure class="figure w-100 rounded-2 overflow-hidden shadow">
+            {{volume|safe}}
+        </figure>
+    </div>
+    <div id="info" style="top: calc(10vh + 10px); z-index: 10;"
+        class="position-sticky mt-4 p-2 shadow border border-2 border-light rounded rounded-3 bg-body bg-opacity-50"
+        hx-swap-oob="true">
+        <!-- hx-swap-oob="true" targets outerHTML of DOM -->
+        <h2 class="text-secondary">Price Insights</h2>
+        <hr>
+        <h4>All Time Low: ${{low}}</h4>
+        <h4>All Time High: ${{high}}</h4>
+        <hr>
+        <h4>Average Opening Price: ${{open_avg}}</h4>
+        <h4>Average Highest Price: ${{high_avg}}</h4>
+        <h4>Highest Closing Price: ${{close_max}} </h4>
+    </div>
+    <script>
+        document.getElementById('loader').classList.add('d-none');
+    </script>
+    {% endif %}
+</div>

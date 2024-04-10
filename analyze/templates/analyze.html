@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block title %}Analyze{% endblock %}
+{% load static %}
+{% block style %}
+<link rel="stylesheet" href="{% static 'css/analyze.css' %}">
+
+{% endblock %}
+
+{% block script %}
+<script defer>
+    function loaderOn(){
+        document.getElementById("result_render").innerHTML = "";
+        document.getElementById("info").classList.add('d-none');
+        var loader = document.getElementById('loader');
+        loader.classList.remove('d-none');
+    }
+    document.addEventListener('submit', loaderOn);
+</script>
+{% endblock %}
+
+{% block main %}
+<div class="container-fluid w-100 p-2 d-grid" id="main-grid">
+    <div>
+        <aside class="shadow border border-2 border-light rounded rounded-3 bg-body bg-opacity-10 text-dark">
+            <!-- RADIO BUTTON GROUP -->
+            <div id="choice-buttons" class="container">
+                <div id="radio-group" class="btn-group float-end" role="group">
+                    <input type="radio" class="btn-check" onclick="document.getElementById('csv_form').reset()"
+                        name="csv_or_api" value="csv" id="thru_csv">
+                    <label class="btn btn-outline-light fw-bold btn-lg " for="thru_csv"
+                        onclick="RadioDisplay('csv')">Use CSV
+                        data</label>
+                    <input type="radio" class="btn-check" onclick="document.getElementById('ticker_form').reset()"
+                        name="csv_or_api" value="api" id="thru_api">
+                    <label class="btn btn-outline-light btn-lg fw-bold" for="thru_api" onclick="RadioDisplay('api')">Get
+                        from online</label>
+                </div>
+            </div>
+            <!-- CSV FORM -->
+            <div id="csv-form-container" class="container mx-auto gap-4 row d-none">
+                <div class="my-5">
+                    <form method="post" hx-post="{% url 'analyzer' %}" hx-encoding="multipart/form-data"
+                        hx-target="#result_render" hx-swap="outerHTML" enctype="multipart/form-data" id="csv_form"
+                        name="csv_form">
+                        {% csrf_token %}
+                        <div>
+                            {{ csvForm }}
+                            <span class="helptext p-3 text-light">Upload a <code>.csv</code> file to visualize...</span>
+                            <br>
+                            <button name="csvData" class="btn btn-primary mt-4" form="csv_form" type="submit">
+                                <i class="bi bi-table"></i> Go!</button>
+                        </div>
+                    </form>
+                </div>
+                <hr>
+            </div>
+            <!-- ONLINE FETCH FORM -->
+            <div id="api-form-container" class="container mx-auto gap-4 row d-none">
+                <div
+                    class="p-3 {% if inputVal %} pt-0 {% endif %} w-75 my-4 border-light border rounded rounded-3 bg-secondary bg-gradient">
+                    <div id="form-container" class="pt-1 ">
+                        <form method="post" hx-post="{% url 'analyzer' %}" name="ticker_form" id="ticker_form"
+                            hx-target="#result_render" hx-swap="outerHTML">
+                            {% csrf_token %}
+                            <fieldset class='border rounded rounded-3 p-2'>
+                                <div class="form-floating">{{ TickerInput }}</div>
+                            </fieldset>
+                        </form>
+                    </div>
+                </div>
+                <div id="date-input" class="d-flex gap-3">
+                    {% for field in DateInput %}{{ field }}{% endfor %}
+                    <button name="getData" class="me-1 btn btn-primary" form="ticker_form" type="submit"><i
+                            class="bi bi-table"></i>
+                        Get Data</button>
+                </div>
+                <hr>
+            </div>
+            <div id="loader" class="lds-ellipsis w-100 d-grid justify-content-center align-items-center d-none">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </aside>
+        <div id="info" class="d-none"></div>
+    </div>
+    <template id="result_render">
+    </template>
+</div>
+{% endblock %}
+
+{% block footer %}{% endblock %}

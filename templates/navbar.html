@@ -1,0 +1,28 @@
+{% block header %}
+<header id="header">
+    <div id="logo_options">
+        <button href="#" class="hamburger"><i class=""></i></button>
+        <h1 id="logo">
+            <a href="{% url 'index' %}"><i class="bi bi-file-bar-graph"></i><span>StockVista</span></a>
+        </h1>
+    </div>
+    {% if active != 'index' %}
+    <nav>
+        <ul class="menu">
+            <li class="nav-item {% if active == 'index' %} active {% endif %}"><a class="nav-link"
+                    href="{% url 'index' %}">Home</a></li>
+            <li class="nav-item {% if active == 'analyze' %} active {% endif %}"><a class="nav-link"
+                    href="{% url 'analyze' %}">Analyze</a></li>
+        </ul>
+    </nav>
+    <nav id="menu-wrap">
+        <ul class="menu">
+            <li class="nav-item {% if active == 'index' %} active {% endif %}"><a class="nav-link"
+                    href="{% url 'index' %}">Home</a></li>
+            <li class="nav-item {% if active == 'analyze' %} active {% endif %}"><a class="nav-link"
+                    href="{% url 'analyze' %}">Analyze</a></li>
+        </ul>
+    </nav>
+    {% endif %}
+</header>
+{% endblock %}
