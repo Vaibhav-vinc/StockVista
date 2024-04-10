@@ -6,4 +6,5 @@ pandas-datareader==0.10.0
 plotly==5.20.0
 yfinance==0.2.37
 setuptools==69.2.0
-TA_Lib-0.4.28-cp312-cp312-win_amd64
+# TA_Lib-0.4.28-cp312-cp312-win_amd64
+https://github.com/cgohlke/talib-build/releases/download/v0.4.28/TA_Lib-0.4.28-cp312-cp312-win_amd64.whl
