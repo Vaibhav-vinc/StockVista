@@ -1,15 +1,15 @@
-from django.shortcuts import render
 import talib as ta
 import pandas as pd
 import datetime as dt
 import yfinance as yf
-from icecream import ic
 from numpy import sqrt
-import pandas_datareader.data as web
+from icecream import ic
 import plotly.express as px
-import plotly.graph_objects as go
-from plotly.subplots import make_subplots
 from stockvista import forms
+import plotly.graph_objects as go
+from django.shortcuts import render
+import pandas_datareader.data as web
+from plotly.subplots import make_subplots
 
 ic.includeContext = True
 
@@ -304,7 +304,6 @@ def getDataset(ticker: str, start: dt.datetime, end: dt.datetime) -> pd.DataFram
 
 
 def calcIns(df: pd.DataFrame) -> dict:
-    ic()
     desc = df.describe()
     rows = ["min", "max", "mean"]
     info = pd.DataFrame(
