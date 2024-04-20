@@ -1,5 +1,3 @@
-docker build --platform linux/arm64 -t Stockvista .
-
 # Use an official Python runtime as a parent image
 FROM python:3.12
 
