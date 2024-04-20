@@ -1,6 +1,8 @@
 # Use an official Python runtime as a parent image
 FROM python:3.12
 
+docker build --platform linux/arm64 -t Stockvista .
+
 # Set environment variables for Python
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
